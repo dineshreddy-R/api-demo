@@ -29,6 +29,6 @@ cur.execute(sql)
 result = cur.fetchall()
 conn.close()
 
-"""for i in result:
+for i in result:
     print(i)
-    print('#'*6)"""
+    print('#'*6)
