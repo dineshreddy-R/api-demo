@@ -1,0 +1,6 @@
+git pull --> must do before every add
+
+git add attendance/20250527.txt --> for adding single file
+git add . --> for adding all files in local to git
+
+git commit -m "added 20250527"
