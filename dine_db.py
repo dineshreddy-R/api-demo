@@ -1,11 +1,16 @@
 import psycopg2
+import os
+from dotenv import load_dotenv
 
-dine_db_host = "pg-12c7bdf1-reddy94.l.aivencloud.com"
-db_name = "defaultdb"
-user = "avnadmin"
-pwd = "AVNS_Xtm8bKHSR1GtTelNyMC"
-port = "15563"
+load_dotenv()
 
+dine_db_host = os.getenv("DB_HOST")
+db_name = os.getenv("DB_NAME")
+user = os.getenv("DB_USER")
+pwd = os.getenv("DB_PASSWORD")
+port = os.getenv("DB_PORT")
+
+print(dine_db_host, db_name, user)
 """
 DB related stuff
 1. create connection
@@ -14,21 +19,23 @@ DB related stuff
 4. close connection --> check in GPT
 """
 
-conn = psycopg2.connect(
-    host=dine_db_host,
-    dbname=db_name,
-    user=user,
-    password=pwd,
-    port=port
-)
-print("connection created")
-cur = conn.cursor()
 
-sql = "select * from student"
-cur.execute(sql)
-result = cur.fetchall()
-conn.close()
+if '__name__' == '__main__':
+    conn = psycopg2.connect(
+        host=dine_db_host,
+        dbname=db_name,
+        user=user,
+        password=pwd,
+        port=port
+    )
+    print("connection created")
+    cur = conn.cursor()
 
-for i in result:
-    print(i)
-    print('#'*6)
+    sql = "select * from student"
+    cur.execute(sql)
+    result = cur.fetchall()
+    conn.close()
+
+    for i in result:
+        print(i)
+        print('#' * 6)
