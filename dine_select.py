@@ -21,7 +21,7 @@ conn = psycopg2.connect(
 
 print("conncetion created")
 cur = conn.cursor()
-sql = ("select user_name,password from users where user_name = 'dine123' AND password = 'dine@123'")
+sql = "select user_name,password from users where user_name = 'dine123' AND password = 'dine@123'"
 cur.execute(sql)
 result = cur.fetchall()
 conn.close()

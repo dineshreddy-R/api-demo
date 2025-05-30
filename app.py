@@ -1,8 +1,13 @@
 import json
 import os
-
+from dotenv import load_dotenv
 import psycopg2
-from flask import Flask, render_template
+
+from flask import Flask, render_template, request
+
+from dine_db import dine_db_host
+
+load_dotenv()
 
 app = Flask(__name__)
 dine_db_host = os.getenv("DB_HOST")
@@ -11,15 +16,73 @@ user = os.getenv("DB_USER")
 pwd = os.getenv("DB_PASSWORD")
 port = os.getenv("DB_PORT")
 
-@app.route("/login")
+
+@app.route("/login", methods=['POST', 'GET'])
 def login_page():
-    # username paswd check here
-    return render_template("login.html")
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['passx']
+        conn = psycopg2.connect(
+            host=dine_db_host,
+            dbname=db_name,
+            user=user,
+            password=pwd,
+            port=port
+        )
+
+        print("conncetion created")
+        cur = conn.cursor()
+        sql = f"select user_name,password from users where user_name ='{username}' AND password ='{password}'"
+        print(sql)
+        print('#' * 120)
+        cur.execute(sql)
+        result = cur.fetchall()
+        conn.close()
+        if result:
+            return f"{username} {password}"
+        else:
+            print('Invalid username or password')
+            return render_template("login.html")
+    else:
+        return render_template("login.html")
 
 
-@app.route("/register")
+@app.route("/register",methods=['GET'])
 def register_page():
-    return render_template("register.html")
+    if request.method =='POST':
+        id = request.form['id']
+        name= request.form['name']
+        age = request.form['age']
+        user_name = request.form['username']
+        password = request.form['password']
+        print(f"Data received: {name}, {age}, {user_name}, {password}")
+
+
+        conn = psycopg2.connect(
+            host=dine_db_host,
+            dbname=db_name,
+            user=user,
+            password=pwd,
+            port=port
+        )
+        print("connection created")
+        cur = conn.cursor()
+        sql = "insert into users(id,name,age,user_name,password) values (%s,%s,%s,%s,%s)"
+        values = (id, name,age,user_name,password)
+        print('$'*20)
+        cur.execute(sql, values)
+        conn.commit()
+        cur.close()
+        conn.close()
+        if values:
+            print(f"Register sucessfull{user_name}")
+            return
+        else:
+            print("invalied details")
+            return render_template("register.html")
+    else:
+        return render_template("register.html")
+
 
 @app.route("/")
 def home_page():

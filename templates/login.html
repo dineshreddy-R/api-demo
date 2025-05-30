@@ -13,24 +13,22 @@
     <div class="card shadow-lg p-4 rounded-4" style="width: 100%; max-width: 400px;">
       <h2 class="text-center mb-4 text-primary">Login</h2>
 
-      <form>
+      <form action="" method="POST">
         <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="email" placeholder="Enter email">
+          <input type="text" class="form-control" placeholder="Enter UserName" name="username">
         </div>
 
         <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" placeholder="Password">
+          <input type="password" class="form-control" placeholder="Password" name="passx">
         </div>
 
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="remember">
-          <label class="form-check-label" for="remember">Remember me</label>
-        </div>
+<!--        <div class="mb-3 form-check">-->
+<!--          <input type="checkbox" class="form-check-input" id="remember">-->
+<!--          <label class="form-check-label" for="remember">Remember me</label>-->
+<!--        </div>-->
 
         <div class="d-grid">
-          <button type="submit" class="btn btn-primary rounded-pill">Login</button>
+          <input type="submit" value="Submit" class="btn btn-primary rounded-pill">
         </div>
       </form>
 
