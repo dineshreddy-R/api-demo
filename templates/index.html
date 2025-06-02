@@ -17,6 +17,7 @@
         {% if session.username %}
           <span class="me-3 text-muted">Welcome, {{ session.username }}</span>
           <a href="/logout" class="btn btn-outline-danger">Logout</a>
+        {% endif %}
 
           <a href="/login" class="btn btn-outline-primary me-2">Login</a>
           <a href="/register" class="btn btn-primary">Register</a>

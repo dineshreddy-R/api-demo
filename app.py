@@ -47,15 +47,14 @@ def login_page():
         return render_template("login.html")
 
 
-@app.route("/register",methods=['GET'])
+@app.route("/register",methods=['post','GET'])
 def register_page():
     if request.method =='POST':
-        id = request.form['id']
-        name= request.form['name']
-        age = request.form['age']
-        user_name = request.form['username']
+        #name= request.form['name']
+        mail = request.form['mail']
+        user_name = request.form['user_name']
         password = request.form['password']
-        print(f"Data received: {name}, {age}, {user_name}, {password}")
+        print(f"Data received: {user_name},{mail}, {password}")
 
 
         conn = psycopg2.connect(
@@ -67,16 +66,15 @@ def register_page():
         )
         print("connection created")
         cur = conn.cursor()
-        sql = "insert into users(id,name,age,user_name,password) values (%s,%s,%s,%s,%s)"
-        values = (id, name,age,user_name,password)
+        sql = "insert into users(user_name,mail,password) values (%s,%s,%s)"
+        values = ( user_name,mail,password)
         print('$'*20)
         cur.execute(sql, values)
         conn.commit()
         cur.close()
         conn.close()
         if values:
-            print(f"Register sucessfull{user_name}")
-            return
+            return f"{user_name} Register sucessfull "
         else:
             print("invalied details")
             return render_template("register.html")
