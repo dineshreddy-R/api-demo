@@ -19,31 +19,31 @@ if response.status_code == 200:
 
     # main container
     hotals = soup.find_all('div', role="listitem")
-    # print(hotals)
+    print(hotals)
 
-    with open('booking_data.csv', 'w', newline='', encoding='utf-8') as file_csv:
-        writer = csv.writer(file_csv)
+with open('booking_data.csv', 'w', newline='', encoding='utf-8') as file_csv:
+    writer = csv.writer(file_csv)
 
-        writer.writerow(['hotal_name', 'locality', 'price', 'rooms', 'link'])
+    writer.writerow(['hotal_name', 'locality', 'price', 'rooms', 'link'])
 
-        for hotal in hotals:
-            hotal_name = hotal.find('div', class_="b87c397a13 a3e0b4ffd1").text
-            location = hotal.find('span', class_="d823fbbeed f9b3563dd4").text
-            price = hotal.find('span', class_="b87c397a13 f2f358d1de ab607752a2").text
+    for hotal in hotals:
+        hotal_name = hotal.find('div', class_="b87c397a13 a3e0b4ffd1").text
+        location = hotal.find('span', class_="d823fbbeed f9b3563dd4").text
+        price = hotal.find('span', class_="b87c397a13 f2f358d1de ab607752a2").text
 
-            rooms = hotal.find('h4', class_="fff1944c52 f254df5361").text
-            # geting the url
-            link = hotal.find('a', href=True).get('href')
+        rooms = hotal.find('h4', class_="fff1944c52 f254df5361").text
+        # geting the url
+        link = hotal.find('a', href=True).get('href')
 
-        # saving the file into csv
-        writer.writerow([hotal_name, location, price, rooms, link])
+    # saving the file into csv
+    writer.writerow([hotal_name, location, price, rooms, link])
 
-        print(hotal_name)
-        print(location)
-        print(price)
-        # print(review)
-        print(rooms)
-        print(link)
-        print('$' * 10)
+    print(hotal_name)
+    print(location)
+    print(price)
+    # print(review)
+    print(rooms)
+    print(link)
+
 else:
-    print(f"connection failed{response.status_code}")
+print(f"connection failed{response.status_code}")
