@@ -19,25 +19,25 @@ if response.status_code == 200:
 
     flip_data = soup.find_all('div', class_="_75nlfW")
     # print(flip_data)
-with open('flip_data.csv', 'w', newline='', encoding='utf-8') as file_csv:
-    writer = csv.writer(file_csv)
-    writer.writerow(['mobiles_types', 'features', 'prices', 'rating', 'review', 'links'])
+    with open('flip_data.csv', 'w', newline='', encoding='utf-8') as file_csv:
+        writer = csv.writer(file_csv)
+        writer.writerow(['mobiles_types', 'features', 'prices', 'rating', 'review', 'links'])
 
-    for flip in flip_data:
-        mobile = flip.find('div', class_="KzDlHZ").text
-        feature = flip.find('ul', class_="G4BRas").text
-        price = flip.find('div', class_="Nx9bqj _4b5DiR").text
-        rating = flip.find('div', class_="XQDdHH").text
-        review = flip.find('span', class_="Wphh3N").text
-        link = flip.find('a', href=True).get('href')
-        writer.writerow([mobile, feature, price, rating, review, link])
+        for flip in flip_data:
+            mobile = flip.find('div', class_="KzDlHZ").text
+            feature = flip.find('ul', class_="G4BRas").text
+            price = flip.find('div', class_="Nx9bqj _4b5DiR").text
+            rating = flip.find('div', class_="XQDdHH").text
+            review = flip.find('span', class_="Wphh3N").text
+            link = flip.find('a', href=True).get('href')
+            writer.writerow([mobile, feature, price, rating, review, link])
 
-        print(mobile)
-        print(feature)
-        print(price)
-        print(rating)
-        print(review)
-        print(link)
-        print('#' * 10)
-    else:
-        print(f"connection error{response.status_code}")
+            print(mobile)
+            print(feature)
+            print(price)
+            print(rating)
+            print(review)
+            print(link)
+            print('#' * 10)
+else:
+    print(f"connection error{response.status_code}")
