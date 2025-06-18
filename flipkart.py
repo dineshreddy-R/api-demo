@@ -1,3 +1,5 @@
+import time
+
 import requests
 import csv
 from bs4 import BeautifulSoup
@@ -6,7 +8,7 @@ from flask import url_for
 from urllib3 import request
 
 url = "https://www.flipkart.com/search?q=mobiles&as=on&as-show=on&otracker=AS_Query_HistoryAutoSuggest_2_3_na_na_na&otracker1=AS_Query_HistoryAutoSuggest_2_3_na_na_na&as-pos=2&as-type=HISTORY&suggestionId=mobiles&requestId=eb4409f8-9e82-4fb3-a4f1-843a95724899"
-
+time.sleep(5)
 response = requests.get(url)
 print(response.status_code)
 
@@ -39,5 +41,6 @@ if response.status_code == 200:
             print(review)
             print(link)
             print('#' * 10)
+
 else:
     print(f"connection error{response.status_code}")
